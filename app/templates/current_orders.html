@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Current Orders</h2>
+    {% for entry in orders %}
+    <h4 class="mt-3">Order {{ entry.order.order_number }} - {{ entry.order.order_status }}</h4>
+    <table class="table table-bordered mt-3 mb-3">
+        <thead>
+            <tr>
+                <th>Item Type</th>
+                <th>Name</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item_entry in entry.order_items %}
+            <tr>
+                <td>{{ "Veggie" if item_entry.item.type == 'VEGGIE' else "Premade Box" }}</td>
+                <td>{{ item_entry.item.veg_name if item_entry.item.type == 'VEGGIE' else item_entry.item.box_size }}</td>
+                <td>{{ item_entry.order_line.amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h5>Total Price: ${{ entry.total_price }}</h5> <!-- Display total price -->
+    <a href="{{ url_for('staff.update_order_status', order_id=entry.order.id, next=request.url) }}" class="btn btn-warning">Update Order Status</a>
+    {% endfor %}
+</div>
+{% endblock %}

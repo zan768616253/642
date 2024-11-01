@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>All Customers</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Address</th>
+                <th>Balance</th>
+                <th>Max Owing</th>
+                <th>Actions</th> <!-- New column for actions -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td>{{ customer.first_name }}</td>
+                <td>{{ customer.last_name }}</td>
+                <td>{{ customer.username }}</td>
+                <td>{{ customer.cust_address }}</td>
+                <td>${{ customer.cust_balance }}</td>
+                <td>${{ customer.max_owing }}</td>
+                <td>
+                    <a href="{{ url_for('staff.view_customer_details', customer_id=customer.id) }}" class="btn btn-info">View Details</a> <!-- Button to view details -->
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

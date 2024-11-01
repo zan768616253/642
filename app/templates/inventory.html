@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Inventory</h2>
+    <h3>Vegetables</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Price per Unit</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for veg in veggies %}
+            <tr>
+                <td>{{ veg.veg_name }}</td>
+                <td>{{ veg.subtype }}</td>
+                <td>${{ veg.price_per_unit }}</td>
+                <td>{{ veg.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Premade Boxes</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for box in premade_boxes %}
+            <tr>
+                <td>{{ box.box_size }}</td>
+                <td>${{ box.prize }}</td>
+                <td>{{ box.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

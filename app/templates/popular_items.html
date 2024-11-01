@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Most Popular Items</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Item ID</th>
+                <th>Item Type</th>
+                <th>Item Name</th>
+                <th>Total Quantity Sold</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in items %}
+            <tr>
+                <td>{{ entry.item.id }}</td>
+                <td>{{ entry.item.type }}</td>
+                <td>{{ entry.item.veg_name if entry.item.type == 'VEGGIE' else entry.item.box_size }}</td>
+                <td>{{ entry.total_quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

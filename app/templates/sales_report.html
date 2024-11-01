@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Total Sales Report</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Weekly Sales</div>
+                <div class="card-body">
+                    <h5 class="card-title">${{ weekly_sales }}</h5>
+                    <p class="card-text">Total sales for the current week.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Monthly Sales</div>
+                <div class="card-body">
+                    <h5 class="card-title">${{ monthly_sales }}</h5>
+                    <p class="card-text">Total sales for the current month.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header">Yearly Sales</div>
+                <div class="card-body">
+                    <h5 class="card-title">${{ yearly_sales }}</h5>
+                    <p class="card-text">Total sales for the current year.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

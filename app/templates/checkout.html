@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Checkout</h2>
+    <form method="POST" id="checkoutForm" action="{{ url_for('customer.checkout', order_id=order.id) }}">
+        <div class="mb-3">
+            <label for="payment_type" class="form-label">Payment Method</label>
+            <select name="payment_type" class="form-select" id="payment_type" required>
+                <option value="CREDIT_CARD">Credit Card</option>
+                <option value="DEBIT_CARD">Debit Card</option>
+            </select>
+        </div>
+
+        <!-- Amount Display -->
+        <div class="mb-3">
+            <label for="amount_display" class="form-label">Amount</label>
+            <p id="amount_display">{{ amount }}</p>
+            <input type="hidden" name="amount" value="{{ amount }}">
+        </div>
+
+        <!-- Credit Card Fields -->
+        <div id="credit_card_fields" style="display: block;">
+            <div class="mb-3">
+                <label for="card_number" class="form-label">Card Number</label>
+                <input type="text" name="card_number" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="card_expiry_date" class="form-label">Expiry Date (YYYY-MM-DD)</label>
+                <input type="date" name="card_expiry_date" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="card_type" class="form-label">Card Type</label>
+                <select name="card_type" class="form-select" required>
+                    <option value="VISA">Visa</option>
+                    <option value="MASTERCARD">MasterCard</option>
+                    <option value="AMEX">American Express</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Debit Card Fields -->
+        <div id="debit_card_fields" style="display: none;">
+            <div class="mb-3">
+                <label for="bank_name" class="form-label">Bank Name</label>
+                <input type="text" name="bank_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="debit_card_number" class="form-label">Debit Card Number</label>
+                <input type="text" name="debit_card_number" class="form-control" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Pay Now</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('payment_type').addEventListener('change', function() {
+        var creditCardFields = document.getElementById('credit_card_fields');
+        var debitCardFields = document.getElementById('debit_card_fields');
+
+        if (this.value === 'CREDIT_CARD') {
+            creditCardFields.style.display = 'block';
+            debitCardFields.style.display = 'none';
+
+            // Set required attributes for credit card fields
+            setRequiredFields(true, false);
+        } else {
+            debitCardFields.style.display = 'block';
+            creditCardFields.style.display = 'none';
+
+            // Set required attributes for debit card fields
+            setRequiredFields(false, true);
+        }
+    });
+
+    function setRequiredFields(isCreditCard, isDebitCard) {
+        var cardNumberField = document.querySelector('input[name="card_number"]');
+        var expiryDateField = document.querySelector('input[name="card_expiry_date"]');
+        var cardTypeField = document.querySelector('select[name="card_type"]');
+
+        cardNumberField.required = isCreditCard;
+        expiryDateField.required = isCreditCard;
+        cardTypeField.required = isCreditCard;
+
+        var bankNameField = document.querySelector('input[name="bank_name"]');
+        var debitCardNumberField = document.querySelector('input[name="debit_card_number"]');
+
+        bankNameField.required = isDebitCard;
+        debitCardNumberField.required = isDebitCard;
+    }
+</script>
+{% endblock %}

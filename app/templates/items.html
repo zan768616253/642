@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Available Items{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Available Vegetables</h2>
+    <div class="row">
+        {% for veg in veggies %}
+        <div class="col-md-4 mt-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ veg.veg_name }}</h5>
+                    <p>Type: {{ veg.subtype }}</p>
+                    {% if veg.subtype == 'WEIGHTED_VEGGIE' %}
+                    <p>Price per kilo: {{ veg.price_per_unit }}</p>
+                    {% elif veg.subtype == 'PACK_VEGGIE' %}
+                    <p>Price per pack: {{ veg.price_per_unit }}</p>
+                    {% else %}
+                    <p>Price per unit: {{ veg.price_per_unit }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2>Premade Boxes</h2>
+    <div class="row">
+        {% for box in premade_boxes %}
+        <div class="col-md-4 mt-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Box Size: {{ box.box_size }}</h5>
+                    <p>Price: {{ box.prize }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
