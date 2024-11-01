@@ -27,13 +27,13 @@ login_manager.login_view = 'auth.login'
 
 @login_manager.user_loader
 def load_user(user_id):
-    from .models import Person
+    from app.models import Person
 
     return Person.query.get(int(user_id))
 
 
 with app.app_context():
-    from .models import (
+    from app.models import (
         person, staff, customer, corporate_customer, order, order_line, item, veggie,
         weighted_veggie, pack_veggie, unit_price_veggie, premade_box, payment, credit_card_payment, debit_card_payment
     )
@@ -41,7 +41,7 @@ with app.app_context():
     # Create database tables if they don't exist
     db.create_all()
 
-    from .routes import auth, customer, staff
+    from app.routes import auth, customer, staff
 
     app.register_blueprint(auth.auth_bp)
     app.register_blueprint(customer.customer_bp)
